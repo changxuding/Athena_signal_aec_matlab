@@ -1,2 +1,11 @@
 # Athena_signal_aec_matlab
 Matlab version of Athena Signal AEC
+
+## Aims
+- understand WOLA implementation of subband compose/decompose;
+- understand subband adaptive filter;
+
+## Simplify
+- nlms instead of ipnlms;
+- some parameters like filter num, smooth factor etc;
+- remove nlp, dtd status etc, keep forefilter/backfilter and copy logic. 
