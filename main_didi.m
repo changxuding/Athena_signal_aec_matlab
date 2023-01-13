@@ -52,7 +52,7 @@ subband_adf = zeros(half_bin, max_tap);
 subband_adf_in = zeros(half_bin, max_tap);
 subband_adf_mse = zeros(half_bin,1);
 
-%foreground filter
+% foreground filter 
 subband_fir = zeros(half_bin, max_tap);
 subband_fir_in = zeros(half_bin, max_tap);
 mic_in_mse = zeros(half_bin,1);
@@ -90,14 +90,14 @@ for i = 1 : fix(len_audio/frame_len)
     subband_adf_err = fft_out_echo(1:half_bin)' - subband_adf_out;
     subband_adf_mse = alpha_mse .* subband_adf_mse + alpha_mse_1 .* subband_adf_err .* conj(subband_adf_err);
 
-    %foreground filter
+    % foreground filter out
     subband_fir_in(1:fre_low,1:tap_low) = [fft_out_far(1:fre_low)', subband_fir_in(1:fre_low,1:tap_low-1)];
     subband_fir_in(fre_high:end,1:tap_high) = [fft_out_far(fre_high:half_bin)', subband_fir_in(fre_high:end,1:tap_high-1)];    
     subband_fir_out = sum(conj(subband_fir) .* subband_fir_in,2);
     subband_fir_err = fft_out_echo(1:half_bin)' - subband_fir_out;
     subband_fir_mse = alpha_mse .* subband_fir_mse + alpha_mse_1 .* subband_fir_err .* conj(subband_fir_err);
     
-    %mic mse
+    % mic mse
     mic_in_mse = alpha_mse .* mic_in_mse + alpha_mse_1 .* fft_out_echo(1:half_bin)' .* conj(fft_out_echo(1:half_bin))';
     
     % logic for update
@@ -129,7 +129,7 @@ for i = 1 : fix(len_audio/frame_len)
         end
     end
     
-    %nlms update
+    % nlms update
     norm = sum(subband_adf_in .* conj(subband_adf_in), 2) ./ subband_adf_num';
     alpha_nlms = myu' ./ (norm + beta);
     phi = alpha_nlms .* subband_adf_in .* conj(subband_adf_err);
