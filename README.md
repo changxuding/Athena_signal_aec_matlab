@@ -1,5 +1,5 @@
 # Athena_signal_aec_matlab
-Matlab version of Athena Signal AEC
+Matlab version of Athena Signal AEC(subband echo cancellation)
 
 ## Aims
 - understand WOLA implementation of subband compose/decompose;
