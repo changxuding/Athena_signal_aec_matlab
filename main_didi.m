@@ -60,8 +60,8 @@ subband_fir_mse = zeros(half_bin,1);
 
 % nlms para
 myu = zeros(1, half_bin);
-myu(1:fre_low) = 0.025;
-myu(fre_high:end) = 0.025;
+myu(1:fre_low) = 0.25;
+myu(fre_high:end) = 0.25;
 beta = 1e-4;
 
 len_audio = min(length(y_echo),length(y_far));
@@ -130,7 +130,7 @@ for i = 1 : fix(len_audio/frame_len)
     end
     
     % nlms update
-    norm = sum(subband_adf_in .* conj(subband_adf_in), 2) ./ subband_adf_num';
+    norm = sum(subband_adf_in .* conj(subband_adf_in), 2);
     alpha_nlms = myu' ./ (norm + beta);
     phi = alpha_nlms .* subband_adf_in .* conj(subband_adf_err);
     subband_adf = subband_adf + phi;
