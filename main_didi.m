@@ -138,7 +138,7 @@ for i = 1 : fix(len_audio/frame_len)
     ifft_in = [subband_fir_err', fliplr(conj(subband_fir_err(2:end-1)'))];
     
     % compose subband
-    out = ifft(ifft_in, K) * K;
+    out = real(ifft(ifft_in, K) * K);
     %out = fliplr(out);
     win_in = [out, out, out];
     comp_out = win_in' .* win;
